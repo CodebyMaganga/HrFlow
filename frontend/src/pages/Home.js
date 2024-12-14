@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
    <>
-   <Dashboard  users={users}/>
+   <Dashboard users={users}/>
    </>
   );
 };

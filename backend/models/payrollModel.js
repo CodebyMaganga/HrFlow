@@ -4,34 +4,13 @@ const Schema = mongoose.Schema
 
 
 const payrollSchema = new Schema({
-    employee:{
-        type:Schema.Types.ObjectId,
-        ref:'Employee',
+    employees:{
+        type:[Schema.Types.ObjectId],
+        ref: "Employee",
         required: true
     },
-   salary:{
-    type: Number,
-    default: 0,
-    required: true
-   },
-   deductions:{
-    type: Number,
-    default: 0,
-    required: true
-   },
-   bonuses:{
-    type: Number,
-    default: 0,
-    required: true
-   },
-   earnings:{
-    type: Number,
-    default: 0,
-    required: true
-   },
    payrollDate:{
     type: Number,
-    default: null,
     required: true
    },
    month: {
@@ -45,4 +24,4 @@ year: {
 },
     
 })
-module.exports = mongoose.Model('Payroll', payrollSchema)
+module.exports = mongoose.model('Payroll', payrollSchema)

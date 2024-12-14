@@ -1,4 +1,4 @@
-const Payroll = require('../models/payrollModel');
+const Payroll =  require('../models/payrollModel');
 const Employee = require('../models/userModel'); // Assuming you have an Employee model
 
 async function closePayrollForMonth(month, year) {
@@ -24,7 +24,7 @@ async function closePayrollForMonth(month, year) {
                 bonuses,
                 netPay
             });
-
+            console.log('payroll entry',payrollEntry)
             // Save payroll entry to the database
             await payrollEntry.save();
         }
@@ -35,5 +35,58 @@ async function closePayrollForMonth(month, year) {
     }
 }
 
-// Example usage: Close payroll for October 2024
-closePayrollForMonth('October', 2024);
+async function openPayrollForMonth(month, year, payrollDate, employees) {
+    console.log('payrollDate',payrollDate)
+    try {
+        // Check if payroll for the specified month and year already exists
+        const existingPayroll = await Payroll.findOne({ month, year });
+        if (existingPayroll) {
+            return { status: 400, message: `Payroll for ${month} ${year} is already open.` };
+            
+        }
+
+        // Create a new payroll entry with all employee IDs
+        const payrollEntry = new Payroll({
+            employees, // Pass the array of employee IDs
+            payrollDate, // Use the provided payroll date
+            month,
+            year,
+        });
+
+        // Save payroll entry to the database
+        await payrollEntry.save();
+
+        return { status: 201, message: `Payroll for ${month} ${year} has been successfully opened for all employees.` };
+    } catch (error) {
+        console.error('Error opening payroll:', error);
+    }
+}
+
+const getPayrolls = async(req,res) =>{
+    const monthOrder = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    try {
+        const allPayrolls = await Payroll.find()
+
+        const sortedPayrolls = allPayrolls.sort((a, b) => {
+            const monthA = monthOrder.indexOf(a.month);
+            const monthB = monthOrder.indexOf(b.month);
+            return monthB - monthA; // Sort in ascending order
+        });
+        res.status(201).json({sortedPayrolls});
+
+       
+        
+    } catch (error) {
+        res.status(500).json({ message: error });
+    }
+}
+
+
+module.exports = {
+    closePayrollForMonth,
+    openPayrollForMonth,
+    getPayrolls
+}

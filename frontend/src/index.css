@@ -14,3 +14,34 @@ body{
   font-size: small;
  
 }
+
+.custom-tabview .p-tabview-nav {
+ 
+  display: flex;
+
+  flex-direction: row; /* Ensures headers are in a row */
+  justify-content: space-evenly; /* Adjust spacing if necessary */
+  color: #6b7280;  /* gray-500 */
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+}
+
+.custom-tabview .p-tabview-nav li {
+  flex: 1; /* Ensure all tabs have equal width */
+  text-align: center; /* Center text in headers */
+}
+
+.custom-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  /* Active tab state */
+  color: #3b82f6;  /* blue-500 */
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  border-color: #3b82f6;  /* Optional: also change the border color */
+}
+
+.custom-tabview .p-tabview-nav li:not(.p-highlight):hover .p-tabview-nav-link {
+  color: #60a5fa;  /* blue-400 */
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

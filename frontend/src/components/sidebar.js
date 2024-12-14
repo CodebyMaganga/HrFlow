@@ -28,7 +28,7 @@ const Sidebar = () => {
           </li>
           <li className="mb-6">
             <a
-              href="/profile"
+              href="/HRCentral"
               className="flex items-center space-x-2 hover:bg-[#DBDBDB] p-2 rounded"
             >
               <FaUser className="text-[#5e1b72]"/>

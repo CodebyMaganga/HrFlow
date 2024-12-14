@@ -6,6 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import * as dayjs from 'dayjs'
 import Lottie  from 'lottie-react';
 import morning from '../assets/morning.json'
+import evening from '../assets/evening.json'
 
 
 
@@ -20,13 +21,16 @@ const Dashboard = ({users}) => {
 
 
   return (
-    <div className="text-black w-[90%] ml-5  px-4  ">
-      <div className="border rounded-lg px-2 py-8 bg-gradient-to-r from-purple-500 to-purple-900 flex justify-between items-center mt-12">
-        <div className="">
+    <div className="text-black w-[95%] ml-5  px-4  ">
+      <div className="border rounded-lg px-2 py-8 bg-gradient-to-r from-[#ebd8f6] to-[#7b3695] flex justify-between items-center mt-12">
+        <div className="flex items-center">
           {/* <h3 className="font-semibold font-italic">Good Morning,Jane</h3> */}
           {currentHour >= 0 && currentHour <= 4 ? 
+          <div className=""> 
            <h3 className="font-semibold font-italic">Good Evening,Jane</h3>
-          : currentHour > 4 && currentHour < 12 ?<div> 
+           <Lottie animationData={evening} loop={true} style={{ width: 50, height: 50 }}/>
+</div>
+          : currentHour > 4 && currentHour < 12 ?<div className="flex items-center"> 
             <h3 className="font-semibold font-italic">Good Morning,Jane</h3>
             <Lottie animationData={morning} loop={true} style={{ width: 50, height: 50 }}/>
             

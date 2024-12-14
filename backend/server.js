@@ -9,8 +9,9 @@ const leaveRoute = require('./routes/leaves')
 const attendanceRoute = require('./routes/attendance')
 const benefitRoute = require('./routes/benefits')
 const interviewRoute = require('./routes/interview')
+const payrollRoute = require('./routes/payroll')
 
-
+//restart
 
 
 
@@ -33,6 +34,7 @@ app.use('/leaves',leaveRoute)
 app.use('/attendance', attendanceRoute)
 app.use('/benefits', benefitRoute)
 app.use('/interviews', interviewRoute)
+app.use('/payroll', payrollRoute)
 
 
 
@@ -41,6 +43,7 @@ app.use('/interviews', interviewRoute)
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     app.listen(process.env.PORT,(req, res)=>{
+        console.log(req)
         console.log('Connected to db & listening on port 4000')
     })
 }).catch((err) =>{

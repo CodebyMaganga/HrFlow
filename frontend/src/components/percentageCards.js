@@ -3,7 +3,7 @@ import { AiOutlineRise } from "react-icons/ai";
 
 const PercentCard = ({ title, users }) => {
   console.log("persent card---> users", users);
-  const percentage = users ? ( users.users.length - 0 / 100) * 100 : 0
+  const percentage = users ? ( users.users.length - 83 / 100) * 100 : 0
 
   return (
     <div className="mt-4 ">

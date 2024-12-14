@@ -6,7 +6,7 @@ const NewsCard = ()=>{
     return (
        <div className=''>
         <div>
-        <Panel className='bg-white h-[200px] rounded-lg overflow-y-scroll' >
+        <Panel className='bg-white h-[250px] rounded-lg overflow-y-scroll' >
             <p className='text-center mt-4 font-semibold'>What's new today?</p>
                 {companyNews.map(record =>(
                     <div className='my-4 ml-2 py-6 border flex justify-between border-gray-300 rounded-lg'>
