@@ -59,7 +59,7 @@ const updateUser = async (req, res) => {
     }
   );
 
-  res.status(201).json({ message: `User updated successfully` });
+  res.status(201).json({ message: `User updated successfully`, status:201 });
 };
 
 //delete a user

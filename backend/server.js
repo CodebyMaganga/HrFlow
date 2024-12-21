@@ -12,9 +12,6 @@ const interviewRoute = require('./routes/interview')
 const payrollRoute = require('./routes/payroll')
 
 //restart
-
-
-
 const app = express()
 
 //middleware
@@ -52,6 +49,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 function logPath(req,res,next){
+    
     console.log(req.path, req.method)
     next()
 }

@@ -27,7 +27,6 @@ router.delete("/:id", deleteLeave);
 // }).delete((req,res)=>{
 //     res.json({message: `Delete Department id ${req.params.id}`})
 // })
-
 // router.get("/:id", (req, res) => {
 //   res.json({ message: `Get Leave id ${req.params.id}` });
 // });

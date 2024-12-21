@@ -1,6 +1,7 @@
 import { TabView, TabPanel } from "primereact/tabview";
 import "../index.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Avatar from "react-avatar";
@@ -40,6 +41,8 @@ const HRCentral = () => {
   const [empID, setEmpId] = useState("");
 
   const currentMonth = dayjs().format("MMMM");
+
+  const navigate = useNavigate();
 
   console.log("currentMonth", currentMonth);
 
@@ -113,6 +116,12 @@ const HRCentral = () => {
   const iconBody = () => {
     return renderEyeIcon();
   };
+
+  const renderEmployeeIcon = (rowData)=>{
+   
+    return <MdOpenInNew onClick={() => navigate(`/users/${rowData._id}`)} />
+  }
+
 
   const saveEmployee = async () => {
     try {
@@ -220,7 +229,7 @@ const setStatus = (month) => {
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box bg-white">
           <p className="text-center font-bold text-lg my-2">Personal Details</p>
-          <div className="flex flex-row my-4">
+          <div className="flex flex-row gap-4 my-4">
             <div className="w-1/3">
               <p>Full Name</p>
               <InputText
@@ -247,7 +256,7 @@ const setStatus = (month) => {
               />
             </div>
           </div>
-          <div className="flex flex-row my-4">
+          <div className="flex flex-row gap-4 my-4">
             <div className="w-1/3">
               <p>Gender</p>
               <InputText
@@ -274,7 +283,7 @@ const setStatus = (month) => {
               />
             </div>
           </div>
-          <div className="flex flex-row my-4">
+          <div className="flex flex-row gap-4 my-4">
             <div className="w-1/3">
               <p>Date of Birth</p>
               <InputText
@@ -293,7 +302,7 @@ const setStatus = (month) => {
             <p className="text-center font-semibold text-lg my-2">
               Employment Details
             </p>
-            <div className="flex flex-row my-4">
+            <div className="flex flex-row gap-4 my-4">
               <div className="w-1/3">
                 <p>Department</p>
                 <InputText className="bg-stone-200" />
@@ -315,7 +324,7 @@ const setStatus = (month) => {
                 />
               </div>
             </div>
-            <div className="flex flex-row my-4">
+            <div className="flex flex-row gap-4 my-4">
               <div className="w-1/3">
                 <p>Date Of Joining</p>
                 <InputText
@@ -444,8 +453,9 @@ const setStatus = (month) => {
               ></Column> */}
                 <Column
                   className="mx-4 border-b"
-                  body={iconBody}
+                  body={renderEmployeeIcon}
                   header="View"
+                  
                 ></Column>
               </DataTable>
             )}
@@ -541,7 +551,7 @@ className="border-b text-center px-2"
         className="text-black shadow-xl rounded-lg px-4 bg-white border"
       >
         <p className="text-center">Personal Details</p>
-        <div className="flex ">
+        <div className="flex gap-4 ">
           <div className="w-1/3">
             <label>Full Name</label>
             <InputText
