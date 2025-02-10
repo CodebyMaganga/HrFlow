@@ -14,9 +14,7 @@ const EmployeePage = ({ users }) => {
   let params = useParams();
   const navigate = useNavigate();
 
-  console.log("user_id param", params.user_id);
 
-  console.log("users-->", users);
 
   const [status, setStatus] = useState(null);
   const [empID, setEmpID] = useState(null);
@@ -37,6 +35,8 @@ const EmployeePage = ({ users }) => {
   const [admin, setAdmin] = useState(null);
   const [DOJ, setDOJ] = useState(null);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   const [edit, setEdit] = useState(false);
 
   const success = () =>
@@ -56,7 +56,7 @@ const EmployeePage = ({ users }) => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await fetch("/departments");
+        const response = await fetch(`${API_BASE_URL}/departments`);
         const data = await response.json();
         setAllDepartment(data.departments);
       } catch (error) {
@@ -66,10 +66,10 @@ const EmployeePage = ({ users }) => {
 
     const fetchLeaves = async () => {
       try {
-        const response = await fetch("/leaves");
+        const response = await fetch(`${API_BASE_URL}/leaves`);
         const data = await response.json();
         setLeaves(data.leaves);
-        console.log("all leaves--->", data);
+    
       } catch (error) {
         console.error("Error fetching leaves:", error);
       }
@@ -87,17 +87,14 @@ const EmployeePage = ({ users }) => {
     fetchLeaves();
     findEmployee();
 
-    console.log("all dept--->", allDepartments);
-    console.log("all leaves--->", allLeaves);
-    console.log("random number", randomNumber);
+
   }, []);
 
   const findEmployee = () => {
-    console.log("user_id", params.user_id);
+ 
 
     const employee = users.find((el) => el._id === params.user_id);
 
-    console.log("employee", employee);
 
     setStatus(employee.status);
     setfullName(employee.fullName);
@@ -116,20 +113,19 @@ const EmployeePage = ({ users }) => {
     employee.isAdmin === false ? setAdmin("No") : setAdmin("Yes");
     setDOJ(dayjs(employee.DOJ).format("YYYY/MM/DD"));
 
-    console.log("employee", employee);
-    console.log("dept-->", departments);
+
 
     return employee.fullName;
   };
 
   const findDepartment = (deptId) => {
-    console.log("Department ID -->", deptId);
+
 
     if (!deptId || !allDepartments) return "";
 
     const result = allDepartments.find((dept) => dept._id === deptId);
 
-    console.log("Found Department -->", result.name);
+ 
 
     return result ? result.name : "Not Found";
   };
@@ -151,7 +147,7 @@ const EmployeePage = ({ users }) => {
   }, [allLeaves, params.user_id]);
 
   const saveEmployeeDetails = async () => {
-    const response = await fetch(`/users/${params.user_id}`, {
+    const response = await fetch(`${API_BASE_URL}/users/${params.user_id}`, {
       method: "PATCH",
       ContentType: "application/json",
       body: JSON.stringify({
@@ -173,7 +169,7 @@ const EmployeePage = ({ users }) => {
 
     const data = await response.json()
 
-    console.log('data status',data.status)
+
 
     if(data.status === 201){
       success()
@@ -182,7 +178,7 @@ const EmployeePage = ({ users }) => {
       error()
     }
 
-    console.log('data-->',data)
+
 
     setEdit(false)
 

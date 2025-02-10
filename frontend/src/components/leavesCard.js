@@ -14,25 +14,27 @@ const LeaveCard = ({ users }) => {
   const [genderChartData, setGenderChartData] = useState({});
   const [genderChartOptions, setGenderChartOptions] = useState({});
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   const currentMonth = dayjs().format("MMMM");
 
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        const response = await fetch("/leaves");
+        const response = await fetch(`${API_BASE_URL}/leaves`);
         const data = await response.json();
         setLeaves(data);
-        console.log("all leaves--->", data);
+      
       } catch (error) {
         console.error("Error fetching leaves:", error);
       }
     };
     const fetchDepartments = async () => {
       try {
-        const response = await fetch("/departments");
+        const response = await fetch(`${API_BASE_URL}/departments`);
         const data = await response.json();
         setDepartment(data);
-        console.log("all departments--->", data);
+       
       } catch (error) {
         console.error("Error fetching leaves:", error);
       }
@@ -161,18 +163,17 @@ const LeaveCard = ({ users }) => {
   
   
 
-  console.log("leave card users--->", users);
-  console.log("leave card departments--->", department);
+
 
   const findEmployee = (id) => {
     const result = users?.users.filter((user) => user._id === id);
-    console.log("result", result);
+
     return result ? result[0].fullName : "";
   };
 
   const findEmployeePosition = (id) => {
     const result = users?.users.filter((user) => user._id === id);
-    console.log("employee position", result);
+
     return result ? result[0].jobTitle : "";
   };
 

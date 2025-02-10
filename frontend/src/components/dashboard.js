@@ -11,7 +11,7 @@ import evening from '../assets/evening.json'
 
 
 const Dashboard = ({users}) => {
-    console.log('dashboard users--->',users)
+   
 
     const currentHour = dayjs().hour()
 

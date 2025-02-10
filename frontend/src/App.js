@@ -12,14 +12,16 @@ import { useEffect, useState } from "react";
 function App() {
   const [users, setUser] = useState([]);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("/users");
+        const response = await fetch(`${API_BASE_URL}/users`);
         const data = await response.json();
         setUser(data.users);
-        console.log("all users--->", data.users);
+   
       } catch (error) {
         console.error("Error fetching users:", error);
       }

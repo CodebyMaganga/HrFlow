@@ -48,20 +48,22 @@ const HRCentral = () => {
 
   const navigate = useNavigate();
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 
-  console.log("currentMonth", currentMonth);
+
+ 
 
   const genderOptions = ["Male", "Female", "Prefer not to say"];
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("/users");
+        const response = await fetch(`${API_BASE_URL}/users`);
         const data = await response.json();
         setUser(data.users);
 
-        console.log("all users--->", data);
+     
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -69,11 +71,11 @@ const HRCentral = () => {
 
     const fetchDepartments = async () => {
       try {
-        const response = await fetch("/departments");
+        const response = await fetch(`${API_BASE_URL}/departments`);
         const data = await response.json();
         setDepartment(data.departments);
 
-        console.log("all dept--->", departments);
+       
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -81,10 +83,10 @@ const HRCentral = () => {
 
     const fetchPayrolls = async () => {
       try {
-        const response = await fetch("/payroll/all-payrolls");
+        const response = await fetch(`${API_BASE_URL}/payroll/all-payrolls`);
         const data = await response.json();
         setPayroll(data.sortedPayrolls);
-        console.log("payroll", data);
+     
       } catch (error) {
         console.error("Error fetching payroll:", error);
       }
@@ -110,7 +112,7 @@ const HRCentral = () => {
     
       getYears();
     }
-    console.log('allYears',allYears)
+  
   
   },[payrolls])
 
@@ -148,7 +150,7 @@ const HRCentral = () => {
 
   const saveEmployee = async () => {
     try {
-      const response = await fetch("/users/add-user", {
+      const response = await fetch(`${API_BASE_URL}/users/add-user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -169,7 +171,7 @@ const HRCentral = () => {
         }),
       });
       const result = await response.json();
-      console.log("response", response);
+  
       if (response.status === 200) {
         success();
       } else {
@@ -178,7 +180,7 @@ const HRCentral = () => {
     } catch (error) {
       error();
 
-      console.log("error adding user", error);
+     
     }
   };
   const formatNumber = (number) => {
@@ -193,7 +195,7 @@ const HRCentral = () => {
       (el) => el.month === month
     ).employees;
 
-    console.log("users", users);
+  
     const employeeNames = payrollEmployees.map((employeeId) => {
       const user = users.find((user) => user._id === employeeId);
       return user ? user.fullName : "Unknown Employee";
@@ -222,8 +224,7 @@ const HRCentral = () => {
   };
 
 const setStatus = (month) => {
-  console.log('month',month)
-  console.log('current month',currentMonth)
+
 
   if(month === currentMonth){
     return <p className="bg-[#278510] text-white text-center rounded-lg">Open</p>

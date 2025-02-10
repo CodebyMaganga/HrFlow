@@ -2,7 +2,7 @@ import { Card } from "primereact/card";
 import { AiOutlineRise } from "react-icons/ai";
 
 const PercentCard = ({ title, users }) => {
-  console.log("persent card---> users", users);
+
   const percentage = users ? ( users.users.length - 83 / 100) * 100 : 0
 
   return (
