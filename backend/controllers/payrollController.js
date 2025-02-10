@@ -24,19 +24,19 @@ async function closePayrollForMonth(month, year) {
                 bonuses,
                 netPay
             });
-            console.log('payroll entry',payrollEntry)
+            
             // Save payroll entry to the database
             await payrollEntry.save();
         }
 
-        console.log(`Payroll for ${month} ${year} has been successfully closed for all employees.`);
+
     } catch (error) {
         console.error('Error closing payroll:', error);
     }
 }
 
 async function openPayrollForMonth(month, year, payrollDate, employees) {
-    console.log('payrollDate',payrollDate)
+  
     try {
         // Check if payroll for the specified month and year already exists
         const existingPayroll = await Payroll.findOne({ month, year });
