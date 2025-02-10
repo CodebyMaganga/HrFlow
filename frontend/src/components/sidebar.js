@@ -1,6 +1,7 @@
 import React from "react";
 import { FaHome, FaUser, FaCog, FaChartBar } from "react-icons/fa"; 
 import { GrResources } from "react-icons/gr";
+import { TiGroup } from "react-icons/ti";
 
 const Sidebar = () => {
   return (
@@ -31,8 +32,8 @@ const Sidebar = () => {
               href="/HRCentral"
               className="flex items-center space-x-2 hover:bg-[#DBDBDB] p-2 rounded"
             >
-              <FaUser className="text-[#5e1b72]"/>
-              <span>Profile</span>
+              <TiGroup className="text-[#5e1b72]"/>
+              <span>HR Central</span>
             </a>
           </li>
           <li className="mb-6">
@@ -40,8 +41,8 @@ const Sidebar = () => {
               href="/analytics"
               className="flex items-center space-x-2 hover:bg-[#DBDBDB] p-2 rounded"
             >
-              <FaChartBar className="text-[#5e1b72]"/>
-              <span>Analytics</span>
+              <FaUser className="text-[#5e1b72]"/>
+              <span>Profile</span>
             </a>
           </li>
           <li className="mb-6">

@@ -24,7 +24,6 @@ app.get('/', (req,res)=>{
 })
 
 //routes
-
 app.use('/users', usersRoute)
 app.use('/departments',departmentRoute)
 app.use('/leaves',leaveRoute)
@@ -32,8 +31,6 @@ app.use('/attendance', attendanceRoute)
 app.use('/benefits', benefitRoute)
 app.use('/interviews', interviewRoute)
 app.use('/payroll', payrollRoute)
-
-
 
 
 //db connection

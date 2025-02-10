@@ -40,9 +40,15 @@ const HRCentral = () => {
 
   const [empID, setEmpId] = useState("");
 
+  const [selectedYear, setSelectedYear] = useState(null);
+
+  const [allYears, setAllYears] = useState(null)
+
   const currentMonth = dayjs().format("MMMM");
 
   const navigate = useNavigate();
+
+
 
   console.log("currentMonth", currentMonth);
 
@@ -84,12 +90,29 @@ const HRCentral = () => {
       }
     };
 
+   
+
     fetchUsers();
     fetchDepartments();
     fetchPayrolls();
 
     setLoading(false);
   }, []);
+
+  useEffect(()=>{
+    if (payrolls && payrolls.length > 0) {
+    const getYears =  () =>{
+      const findYears = payrolls.map(payroll => payroll.year)
+      setAllYears(findYears)
+    }
+
+    
+    
+      getYears();
+    }
+    console.log('allYears',allYears)
+  
+  },[payrolls])
 
   const findDepartment = (id) => {
     const result = departments.find((dept) => dept._id === id);
@@ -230,71 +253,71 @@ const setStatus = (month) => {
         <div className="modal-box bg-white">
           <p className="text-center font-bold text-lg my-2">Personal Details</p>
           <div className="flex flex-row gap-4 my-4">
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Full Name</p>
               <InputText
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="bg-stone-200"
+                className="bg-stone-200  h-6 rounded-lg"
               />
             </div>
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Phone Number</p>
               <InputText
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="+2547XXXXXX"
-                className="bg-stone-200"
+                className="bg-stone-200 h-6 rounded-lg"
               />
             </div>
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Address</p>
               <InputText
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="bg-stone-200"
+                className="bg-stone-200 h-6 rounded-lg"
               />
             </div>
           </div>
           <div className="flex flex-row gap-4 my-4">
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Gender</p>
               <InputText
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                className="bg-stone-200"
+                className="bg-stone-200 h-6 rounded-lg"
               />
             </div>
 
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Email</p>
               <InputText
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-stone-200"
+                className="bg-stone-200 h-6 rounded-lg"
               />
             </div>
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Password</p>
               <InputText
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="bg-stone-200"
+                className="bg-stone-200 h-6 rounded-lg"
               />
             </div>
           </div>
           <div className="flex flex-row gap-4 my-4">
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Date of Birth</p>
               <InputText
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className="bg-stone-200"
+                className="bg-stone-200 h-6 rounded-lg"
               />
             </div>
-            <div className="w-1/3">
+            <div className="w-1/3 space-y-2">
               <p>Profile Picture</p>
-              <InputText className="bg-stone-200" />
+              <InputText className="bg-stone-200 h-6 rounded-lg" />
             </div>
           </div>
 
@@ -303,16 +326,16 @@ const setStatus = (month) => {
               Employment Details
             </p>
             <div className="flex flex-row gap-4 my-4">
-              <div className="w-1/3">
+              <div className="w-1/3 space-y-2">
                 <p>Department</p>
-                <InputText className="bg-stone-200" />
+                <InputText className="bg-stone-200 h-6 rounded-lg" />
               </div>
-              <div className="w-1/3">
+              <div className="w-1/3 space-y-2">
                 <p>Job Title</p>
                 <InputText
                   value={jobTitle}
                   onChange={(e) => setJobTitle(e.target.value)}
-                  className="bg-stone-200"
+                  className="bg-stone-200 h-6 rounded-lg"
                 />
               </div>
               <div className="w-1/3">
@@ -320,7 +343,7 @@ const setStatus = (month) => {
                 <InputText
                   value={salary}
                   onChange={(e) => setSalary(e.target.value)}
-                  className="bg-stone-200"
+                  className="bg-stone-200 h-6 rounded-lg"
                 />
               </div>
             </div>
@@ -330,7 +353,7 @@ const setStatus = (month) => {
                 <InputText
                   value={dateOfJoining}
                   onChange={(e) => setDateOfJoining(e.target.value)}
-                  className="bg-stone-200"
+                  className="bg-stone-200 h-6 rounded-lg"
                 />
               </div>
               <div className="w-1/3">
@@ -338,7 +361,7 @@ const setStatus = (month) => {
                 <InputText
                   value={empID}
                   onChange={(e) => setEmpId(e.target.value)}
-                  className="bg-stone-200"
+                  className="bg-stone-200 h-6 rounded-lg"
                 />
               </div>
             </div>
@@ -410,13 +433,13 @@ const setStatus = (month) => {
 
                 <Column body={<Skeleton />} header="Department"></Column>
 
-                <Column body={<Skeleton />} header="View"></Column>
+                <Column body={<Skeleton />} header="View" className="cursor-pointerf"></Column>
               </DataTable>
             ) : (
               <DataTable
                 className="border px-4 py-4"
                 value={users}
-                stripedrow
+                stripedrow='true'
                 scrollable
                 scrollHeight="1200px"
                 paginator
@@ -452,7 +475,7 @@ const setStatus = (month) => {
                 header="Status"
               ></Column> */}
                 <Column
-                  className="mx-4 border-b"
+                  className="mx-4 border-b cursor-pointer"
                   body={renderEmployeeIcon}
                   header="View"
                   
@@ -475,56 +498,63 @@ const setStatus = (month) => {
           </div>
         
          
-          <div className="mt-[80px] border px-4 rounded-lg">
-            <p className="text-xl text-center font-bold my-4">All Payroll</p>
+          <div className="mt-[80px] flex flex-col border px-4 rounded-lg">
+            <div className="flex justify-end">
+            <Dropdown value={'selectedYear'} onChange={(e) => setSelectedYear(e.value)} options={allYears} 
+    placeholder="Select Payroll" className="w-1/3 border px-2 h-8 rounded-lg mt-4" />
+            </div>
+        <div>
+        <p className="text-xl text-center font-bold my-4">All Payroll</p>
 
-            <DataTable
-              className="border px-4 py-6"
-              value={payrolls}
-              stripedrow
-              scrollable
-              scrollHeight="500px"
-              paginator
-              rows={30}
-              rowsPerPageOptions={[5, 10, 25, 50]}
-              tableStyle={{ minWidth: "75vw" }}
-            >
-              <Column
-                className="border-b py-3"
-                field="month"
-                sortable
-                header="Month"
-              ></Column>
-              <Column
-                className="border-b"
-                header="Number of Employees"
-                body={(rowData) => rowData.employees.length} // Use a function to access the length of employees
-              ></Column>
+<DataTable
+  className="border px-4 py-6"
+  value={payrolls}
+  stripedrow='true'
+  scrollable
+  scrollHeight="500px"
+  paginator
+  rows={30}
+  rowsPerPageOptions={[5, 10, 25, 50]}
+  tableStyle={{ minWidth: "75vw" }}
+>
+  <Column
+    className="border-b py-3"
+    field="month"
+    sortable
+    header="Month"
+  ></Column>
+  <Column
+    className="border-b"
+    header="Number of Employees"
+    body={(rowData) => rowData.employees.length} // Use a function to access the length of employees
+  ></Column>
 
-              <Column
-                className="border-b"
-                field="payrollDate"
-                header="Closing Date"
-              ></Column>
+  <Column
+    className="border-b"
+    field="payrollDate"
+    header="Closing Date"
+  ></Column>
 
-              <Column
-                className="border-b"
-                header="Total Salary"
-                body={(rowData) => payrollTotalSalary(rowData.month)} // Use a function to access the length of employees
-              ></Column>
+  <Column
+    className="border-b"
+    header="Total Salary"
+    body={(rowData) => payrollTotalSalary(rowData.month)} // Use a function to access the length of employees
+  ></Column>
 
-              <Column
+  <Column
 
 className="border-b text-center px-2"
-                header="Status"
-                body={(rowData) => setStatus(rowData.month)}
-              ></Column>
-              <Column
-                className="mx-4 px-2 border-b"
-                body={iconBody}
-                header="View"
-              ></Column>
-            </DataTable>
+    header="Status"
+    body={(rowData) => setStatus(rowData.month)}
+  ></Column>
+  <Column
+    className="mx-4 px-2 border-b cursor-pointer"
+    body={iconBody}
+    header="View"
+  ></Column>
+</DataTable>
+        </div>
+         
           </div>
         </TabPanel>
         <TabPanel header="Header III">
